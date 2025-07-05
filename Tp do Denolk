@@ -1,0 +1,35 @@
+-- Mensagem "Tp do Denolk"
+local msg = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
+local textLabel = Instance.new("TextLabel", msg)
+
+textLabel.Size = UDim2.new(0.4, 0, 0.1, 0)
+textLabel.Position = UDim2.new(0.3, 0, 0.05, 0)
+textLabel.Text = "Tp do Denolk"
+textLabel.TextScaled = true
+textLabel.BackgroundTransparency = 0.3
+textLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+textLabel.Font = Enum.Font.SourceSansBold
+
+wait(5)
+msg:Destroy()
+
+-- Criar ferramenta TPtool
+local player = game.Players.LocalPlayer
+local tool = Instance.new("Tool")
+tool.Name = "TPtool"
+tool.RequiresHandle = false
+tool.CanBeDropped = false
+tool.Parent = player.Backpack
+
+-- Teleporte ao clicar com o mouse
+tool.Equipped:Connect(function(mouse)
+	mouse.Button1Down:Connect(function()
+		if mouse.Target then
+			local char = player.Character
+			if char and char:FindFirstChild("HumanoidRootPart") then
+				char:MoveTo(mouse.Hit.Position + Vector3.new(0, 3, 0)) -- Teleporta 3 studs acima do chão
+			end
+		end
+	end)
+end)
